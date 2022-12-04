@@ -73,7 +73,7 @@ const HomeScreen = () => {
                         <option >Likes (High - Low)</option>
                         <option >Dislikes (High - Low)</option>
                     </NativeSelect> */}
-                <Box sx={{padding: 1, display: "flex", alignItems: "center"}}>
+                <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
                     <IconButton><HomeIcon sx={{fontSize: 30}}/></IconButton>
                     <IconButton><GroupsIcon sx={{fontSize: 30}}/></IconButton>
                     <IconButton><PersonIcon sx={{fontSize: 30}}/></IconButton>
