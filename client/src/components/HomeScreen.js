@@ -45,7 +45,7 @@ const HomeScreen = () => {
                 ))
                 
             }
-            <Fab sx={{transform:"translate(500%, 10%)"}}
+            <Fab sx={{transform:"translate(600%, 10%)"}}
                 color="primary" 
                 aria-label="add"
                 id="add-list-button"
@@ -75,12 +75,13 @@ const HomeScreen = () => {
                 <MUIDeleteModal />
             </Box>
             <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '50%'}}>
-            <Tabs id="play-com" aria-label="basic tabs example" sx={{marginBottom: '5%'}}>
+            <Tabs id="play-com" aria-label="basic tabs example">
                 <Tab label="Player" />
                 <Tab label="Comments" />
             </Tabs>
             <div id="youtube-player">
-                    <YouTubePlayer/>
+                    <YouTubePlayer sx={{marginTop: "5%"}}/>
+                    <Typography sx={{textAlign: "center", fontSize: "24pt"}}>Now Playing</Typography>
             </div>
             </Box>
         </div>)

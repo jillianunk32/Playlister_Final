@@ -1,11 +1,15 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
+import { Typography, Button } from '@mui/material';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import { Stack } from '@mui/system';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -77,24 +81,104 @@ function ListCard(props) {
         <ListItem
             id={idNamePair._id}
             key={idNamePair._id}
-            sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '15px', display: 'flex', p: 1 }}
-            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '48pt' }}
+            sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', p: 1 }}
+            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
             button
             onClick={(event) => {
                 handleLoadList(event, idNamePair._id)
             }}
         >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-            <Box sx={{ p: 1 }}>
-                <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                    <EditIcon style={{fontSize:'48pt'}} />
+            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
+            <Typography>By:{} </Typography>
+            <Typography>Published: {}</Typography></Box>
+            
+            <Stack sx={{ p: 1}}>
+                <Box sx={{p:1, display:'inline-flex'}}>
+                    <IconButton onClick={(event) => {
+                            handleDeleteList(event, idNamePair._id)
+                        }} aria-label='like'>
+                        <ThumbUpOffAltIcon style={{fontSize:'24pt'}} />
+                    </IconButton>
+                    <Typography >Num Likes</Typography>
+                    <IconButton onClick={(event) => {
+                            handleDeleteList(event, idNamePair._id)
+                        }} aria-label='dislike'>
+                        <ThumbDownOffAltIcon style={{fontSize:'24pt'}} />
+                    </IconButton>
+                    <Typography>Num Disikes</Typography>
+                </Box>
+                <Box sx={{ p: 1 , display: "inline-flex", alignItems: "right"}}>
+                    <Typography>Listens: </Typography>
+                    <IconButton sx={{marginLeft: "60%"}}onClick={handleToggleEdit} aria-label='edit'>
+                        <KeyboardDoubleArrowDownIcon style={{fontSize:'24pt'}} />
+                    </IconButton>
+                </Box>
+            </Stack>
+        </ListItem>
+
+        let unpublishedCardElement = 
+        <ListItem
+            id={idNamePair._id}
+            key={idNamePair._id}
+            sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', p: 1 }}
+            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
+            button
+            onClick={(event) => {
+                handleLoadList(event, idNamePair._id)
+            }}
+        >
+            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
+            <Typography>By:{} </Typography></Box>
+            <Box sx={{ p: 1 , alignItems: "bottom-right"}}>
+                <IconButton sx={{alignItems: "bottom-right"}}onClick={handleToggleEdit} aria-label='edit'>
+                    <KeyboardDoubleArrowDownIcon style={{fontSize:'24pt'}} />
                 </IconButton>
             </Box>
-            <Box sx={{ p: 1 }}>
-                <IconButton onClick={(event) => {
+        </ListItem>
+
+        let openCard = 
+        <ListItem
+            id={idNamePair._id}
+            key={idNamePair._id}
+            sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', p: 1 }}
+            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
+            button
+            onClick={(event) => {
+                handleLoadList(event, idNamePair._id)
+            }}
+        >
+            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
+            <Typography>By:{} </Typography></Box>
+            <Box sx={{ p: 1, display: "flex", flexWrap: "no-wrap"}}>
+                <Button onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='undo'>
+                    Undo
+                </Button>
+                <Button onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='redo'>
+                    Redo
+                </Button>
+                <Button onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='publish'>
+                    Publish
+                </Button>
+                <Button onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
                     }} aria-label='delete'>
-                    <DeleteIcon style={{fontSize:'48pt'}} />
+                    Delete
+                </Button>
+                <Button onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='duplicate'>
+                    Duplicate
+                </Button>
+            </Box>
+            <Box sx={{ p: 1 , alignItems: "right"}}>
+                <IconButton sx={{alignItems: "right"}}onClick={handleToggleEdit} aria-label='edit'>
+                    <KeyboardDoubleArrowUpIcon style={{fontSize:'24pt'}} />
                 </IconButton>
             </Box>
         </ListItem>
