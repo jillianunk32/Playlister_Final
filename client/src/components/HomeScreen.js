@@ -6,9 +6,12 @@ import MUIDeleteModal from './MUIDeleteModal'
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography'
 
-import {Box} from '@mui/material/';
+import HomeIcon from '@mui/icons-material/Home';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
+
+import {Box, InputLabel,NativeSelect, IconButton, TextField} from '@mui/material/';
 import YouTubePlayer from './YouTubePlayer';
 /*
     This React component lists all the top5 lists in the UI.
@@ -51,8 +54,31 @@ const HomeScreen = () => {
     }
     return (
         <div id="playlister-list-selector">
-            <div id="list-selector-heading" style={{width: 50}}>
-                <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography>
+            <div id="list-selector-heading" >
+                {/* <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography> */}
+                {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                    Sort By
+                </InputLabel>
+                <NativeSelect id="filter-select" variant="contained" 
+                    sx={{mt: 3, mb: 2}}
+                    defaultValue={""}
+                    inputProps={{
+                        name: 'Sort By',
+                        
+                    }}
+                    >
+                        <option >Name (A-Z)</option>
+                        <option >Publish Date (Newest)</option>
+                        <option >Listens (High - Low)</option>
+                        <option >Likes (High - Low)</option>
+                        <option >Dislikes (High - Low)</option>
+                    </NativeSelect> */}
+                <Box sx={{padding: 1, display: "flex", alignItems: "center"}}>
+                    <IconButton><HomeIcon sx={{fontSize: 30}}/></IconButton>
+                    <IconButton><GroupsIcon sx={{fontSize: 30}}/></IconButton>
+                    <IconButton><PersonIcon sx={{fontSize: 30}}/></IconButton>
+                    <TextField id="outlined-basic" label="Search" variant="outlined" sx={{marginLeft:"10%", width: "50%"}}/>
+                </Box>    
             </div>
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
                 {
