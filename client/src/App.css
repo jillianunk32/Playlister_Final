@@ -45,7 +45,7 @@ body {
   width: 100%;
   height: 10%;
   float: left;
-  background-image: linear-gradient(to bottom, #37D5D6, #36096D);
+  background-image: linear-gradient(to bottom, #b8b808, #636723);
   color: white;
   font-size: 48pt;
   border-color: black;
@@ -111,10 +111,10 @@ body {
   position: absolute;
   left: 0%;
   top: 10%;
-  width: 100%;
+  width: 50%;
   height: 80%;
   background-color: var(--swatch-primary);
-  max-height: 100px;
+  max-height: 100vh;
   overflow: scroll;
 }
 
@@ -125,7 +125,7 @@ body {
   width: 100%;
   height: 80%;
   background-color: var(--swatch-accent);
-  max-height: 100px;
+  max-height: 100vh;
   overflow: scroll;
 }
 
@@ -149,9 +149,8 @@ body {
   padding-left: 25%;
   width: 50%;
   height: 10%;
-  text-align: center;
-  font-size: 24pt;
-  font-weight: bold;
+  text-align: left;
+  font-size: 15pt;
   display: flex;
   align-items: center;
   justify-content: center;
