@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
+import backgroundlogo from '../images/playlisterlogo.png'
 
 import EditToolbar from './EditToolbar'
 
@@ -97,7 +98,7 @@ export default function AppBanner() {
 
     return (
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{backgroundColor: "#D3D3D3"}}>
                 <Toolbar>
                     <Typography                        
                         variant="h4"
@@ -105,7 +106,9 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link onClick={handleHouseClick} style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</Link>
+                        <Link onClick={handleHouseClick} style={{ textDecoration: 'none', color: 'white' }} to='/'>
+                            <img src={backgroundlogo} width={100} height={50} alt=""/>
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ height: "90px", display: { xs: 'none', md: 'flex' } }}>
