@@ -8,11 +8,8 @@ import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography'
 
-import HomeIcon from '@mui/icons-material/Home';
-import GroupsIcon from '@mui/icons-material/Groups';
-import PersonIcon from '@mui/icons-material/Person';
-import SortIcon from '@mui/icons-material/Sort';
-import {Box, IconButton, TextField} from '@mui/material/';
+import {Box} from '@mui/material/';
+import YouTubePlayer from './YouTubePlayer';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -54,8 +51,8 @@ const HomeScreen = () => {
     }
     return (
         <div id="playlister-list-selector">
-            <div id="list-selector-heading">
-                <Typography variant="h2" style={{fontSize: 30}}>Your Playlists</Typography>
+            <div id="list-selector-heading" style={{width: 50}}>
+                <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography>
             </div>
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
                 {
@@ -63,6 +60,9 @@ const HomeScreen = () => {
                 }
                 <MUIDeleteModal />
             </Box>
+            <div id="youtube-player">
+                    <YouTubePlayer/>
+            </div>
         </div>)
 }
 
