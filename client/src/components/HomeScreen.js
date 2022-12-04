@@ -6,13 +6,14 @@ import MUIDeleteModal from './MUIDeleteModal'
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 import HomeIcon from '@mui/icons-material/Home';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import SortIcon from '@mui/icons-material/Sort';
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+
 
 import {Box, Typography, IconButton, TextField} from '@mui/material/';
 import YouTubePlayer from './YouTubePlayer';
@@ -73,9 +74,15 @@ const HomeScreen = () => {
                 }
                 <MUIDeleteModal />
             </Box>
+            <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '50%'}}>
+            <Tabs id="play-com" aria-label="basic tabs example" sx={{marginBottom: '5%'}}>
+                <Tab label="Player" />
+                <Tab label="Comments" />
+            </Tabs>
             <div id="youtube-player">
                     <YouTubePlayer/>
             </div>
+            </Box>
         </div>)
 }
 

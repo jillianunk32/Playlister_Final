@@ -281,9 +281,17 @@ input {
 
 #youtube-player {
   position: absolute;
-  top: 30%;
-  left: 50%;
+  top: 20%;
+  left: 55%;
   width: 40%;
+  text-align: center;
+}
+
+#play-com {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 20%;
   text-align: center;
 }
 
