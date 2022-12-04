@@ -10,8 +10,11 @@ import List from '@mui/material/List';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
+import SortIcon from '@mui/icons-material/Sort';
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import {Box, InputLabel,NativeSelect, IconButton, TextField} from '@mui/material/';
+import {Box, Typography, IconButton, TextField} from '@mui/material/';
 import YouTubePlayer from './YouTubePlayer';
 /*
     This React component lists all the top5 lists in the UI.
@@ -20,7 +23,6 @@ import YouTubePlayer from './YouTubePlayer';
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
@@ -56,28 +58,13 @@ const HomeScreen = () => {
         <div id="playlister-list-selector">
             <div id="list-selector-heading" >
                 {/* <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography> */}
-                {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                    Sort By
-                </InputLabel>
-                <NativeSelect id="filter-select" variant="contained" 
-                    sx={{mt: 3, mb: 2}}
-                    defaultValue={""}
-                    inputProps={{
-                        name: 'Sort By',
-                        
-                    }}
-                    >
-                        <option >Name (A-Z)</option>
-                        <option >Publish Date (Newest)</option>
-                        <option >Listens (High - Low)</option>
-                        <option >Likes (High - Low)</option>
-                        <option >Dislikes (High - Low)</option>
-                    </NativeSelect> */}
                 <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
                     <IconButton><HomeIcon sx={{fontSize: 30}}/></IconButton>
                     <IconButton><GroupsIcon sx={{fontSize: 30}}/></IconButton>
                     <IconButton><PersonIcon sx={{fontSize: 30}}/></IconButton>
                     <TextField id="outlined-basic" label="Search" variant="outlined" sx={{marginLeft:"10%", width: "50%"}}/>
+                    <Typography sx={{marginLeft: "25%"}}>Sort By</Typography>
+                    <IconButton><SortIcon sx={{fontSize: 42}}/></IconButton>
                 </Box>    
             </div>
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
