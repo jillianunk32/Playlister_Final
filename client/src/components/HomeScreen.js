@@ -83,6 +83,7 @@ const HomeScreen = () => {
     function handlePersonIcon(event){
         event.stopPropagation();
         store.changeHomeScreenView(3);
+        store.loadIdNamePairs();
     }
     function handleSearch(event){
         let searchString = '';
