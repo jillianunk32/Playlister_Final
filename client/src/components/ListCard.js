@@ -24,7 +24,7 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const [open, setopen] = useState(false);
-    const { idNamePair, selected,  changed} = props;
+    const { idNamePair, selected,  changed, search} = props;
 
     function handleLoadList(event, id) {
         if(store.setCurrentList){
@@ -105,7 +105,7 @@ function ListCard(props) {
     collapse = 
         <Box>
             <Collapse in={store.openList.value === idNamePair._id} timeout="auto" unmountOnExit width="90%">
-                <SongWorkspace changed={changed} idNamePair={idNamePair} />
+                <SongWorkspace changed={changed} idNamePair={idNamePair}/>
             </Collapse>
         </Box>
 

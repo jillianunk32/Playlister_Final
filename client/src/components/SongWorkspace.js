@@ -9,7 +9,7 @@ import MUIRemoveSongModal from './MUIRemoveSongModal'
 import EditToolbar from './EditToolbar';
 
 function SongWorkspace(props){
-    const {changed, idNamePair} = props;
+    const {changed, idNamePair, search} = props;
     const {store} = useContext(GlobalStoreContext);
     store.history = useHistory();
 

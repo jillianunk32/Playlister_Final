@@ -4,10 +4,13 @@ import { useState } from 'react'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
 import YouTubeComments from './YouTubeComments'
+import { useHistory } from 'react-router-dom'
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
@@ -27,15 +30,31 @@ import YouTubePlayer from './YouTubePlayer';
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
     const changed = useRef(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isMenuOpen = Boolean(anchorEl);
+    store.history = useHistory();
+    const search = useRef(false);
 
     useEffect(() => {
-        store.loadIdNamePairs();
-    }, [changed.current]);
-
-    const handleAddList = () => {
-        store.createNewList();
-        toggleChanged();
-    }
+        if(store.homeScreenView===1 && search.current){
+            store.loadIdNamePairs();
+            toggleSearch();
+            console.log("1")
+        }else if (store.homeScreenView===1 && !store.current){
+          store.loadIdNamePairs();
+          console.log("2")
+        }
+        else if(store.homeScreenView!==1 && search.current){
+          store.loadIdNamePairs();
+          console.log("3")
+        }
+        else if(store.homeScreenView!==1 && !search.current){
+          toggleSearch();
+          console.log("4")
+        }
+        toggleSearch();
+          console.log(search.current);
+    }, [changed.current, search.current]);
 
     const handleOpen = (id) => {
         store.openListEdit(id);
@@ -45,10 +64,44 @@ const HomeScreen = () => {
         changed.current = !(changed.current);
     }
 
+    const toggleSearch = () => {
+        search.current = !(search.current);
+    }
     function handleCreateNewList() {
         store.createNewList();
     }
+    function handleHomeClick(event){
+        event.stopPropagation();
+        store.changeHomeScreenView(1);
+        store.loadIdNamePairs();
+    }
+    function handleGroupsIcon(event){
+        event.stopPropagation();
+        store.changeHomeScreenView(2);
+    }
+    function handlePersonIcon(event){
+        event.stopPropagation();
+        store.changeHomeScreenView(3);
+    }
+    function handleSearch(event){
+        let searchString = '';
+        event.stopPropagation();
+        if(event.key==="Enter"){
+            searchString= event.target.value;
+            console.log(searchString);
+            store.searchBy(searchString);
+            if(store.homeScreenView===1){
+                store.changeHomeScreenView(2);
+            }
+            toggleChanged();
+            toggleSearch();
+        }
+    }
+    let handleSortButtonClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
     let listCard = "";
+    console.log(search)
     if (store) {
         listCard = 
             <List sx={{overflow:'auto', width: '90%', left: '5%', height: '100%'}}>
@@ -75,17 +128,77 @@ const HomeScreen = () => {
             </Fab>
             </List>;
     }
+
+
+    let menu = 
+    (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={isMenuOpen}
+        //   onClose={handleMenuClose}
+        >
+          <MenuItem
+            // onClick={() => {
+            //   store.setSortOption("Name");
+            //   handleMenuClose();
+            // }}
+          >
+            Name (A-Z)
+          </MenuItem>
+          <MenuItem
+            // onClick={() => {
+            //   store.setSortOption("Date");
+            //   handleMenuClose();
+            // }}
+          >
+            Publish Date (Newest)
+          </MenuItem>
+          <MenuItem
+            // onClick={() => {
+            //   store.setSortOption("Listens");
+            //   handleMenuClose();
+            // }}
+          >
+            Listens (High - Low)
+          </MenuItem>
+          <MenuItem
+            // onClick={() => {
+            //   store.setSortOption("Likes");
+            //   handleMenuClose();
+            // }}
+          >
+            Likes (High - Low)
+          </MenuItem>
+          <MenuItem
+            // onClick={() => {
+            //   store.setSortOption("Dislikes");
+            //   handleMenuClose();
+            // }}
+          >
+            Dislikes (High - Low)
+          </MenuItem>
+        </Menu>
+      );
     return (
         <div id="playlister-list-selector">
             <div id="list-selector-heading" >
                 {/* <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography> */}
                 <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
-                    <IconButton><HomeIcon sx={{fontSize: 30}}/></IconButton>
-                    <IconButton><GroupsIcon sx={{fontSize: 30}}/></IconButton>
-                    <IconButton><PersonIcon sx={{fontSize: 30}}/></IconButton>
-                    <TextField id="outlined-basic" label="Search" variant="outlined" sx={{marginLeft:"10%", width: "50%"}}/>
-                    <Typography sx={{marginLeft: "25%"}}>Sort By</Typography>
-                    <IconButton><SortIcon sx={{fontSize: 42}}/></IconButton>
+                    <IconButton onClick={handleHomeClick}><HomeIcon sx={{fontSize: 30}}/></IconButton>
+                    <IconButton onClick={handleGroupsIcon}><GroupsIcon sx={{fontSize: 30}}/></IconButton>
+                    <IconButton onClick={handlePersonIcon}><PersonIcon sx={{fontSize: 30}}/></IconButton>
+                    <TextField id="outlined-basic" label="Search" variant="outlined" sx={{marginLeft:"10%", width: "50%"}} onKeyDown={handleSearch}/>
+                    <Box sx={{marginLeft: "25%", display: "inline-flex"}}>Sort By<IconButton onClick={handleSortButtonClick} ><SortIcon sx={{fontSize: 42}} /></IconButton>
+                    {menu}</Box>
                 </Box>    
             </div>
             <Grid container sx={{height: '100%'}}>

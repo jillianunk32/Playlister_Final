@@ -10,7 +10,7 @@ function Comments() {
 
     return (
         <Box>
-            <Card height='100px' sx={{backgroundColor:'white'}}>
+            <Card height='100px' sx={{bgcolor:'white'}}>
                 
             </Card>
         </Box>

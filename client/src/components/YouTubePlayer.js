@@ -120,15 +120,19 @@ export default function YouTubePlayer(props) {
             console.log("5 Video cued");
         }
     }
-
-    return (
-    <div>
-    <YouTube
+    let tube = '';
+    if(store.youTubeCurrentSong){
+        tube = 
+        <YouTube
         videoId={store.youTubeCurrentSong.youTubeId}
         opts={playerOptions}
         onReady={onPlayerReady}
         onStateChange={onPlayerStateChange} 
     /> 
+    }
+    return (
+    <div>
+        {tube}
           <Box
           sx={{
             width: "90%",
