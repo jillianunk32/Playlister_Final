@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import {Grid, Typography, List, ListItem, Card, Container} from '@mui/material';
+import {Grid, Typography, List, ListItem, Card, Container, touchRippleClasses} from '@mui/material';
 
 /*
     This toolbar is a functional React component that
@@ -33,11 +33,20 @@ function EditToolbar(props) {
         event.stopPropagation();
         store.markListForDeletion(idNamePair._id);
     }
+    async function handlePublish(event){
+        event.stopPropagation();
+        store.publishList();
+        await store.loadIdNamePairs1();
+        window.location.reload();
+    }
+    console.log(idNamePair.published);
     return (
         <Box sx={{marginTop: "10%", display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{width:"100%"}}>
             <Card
                 color="primary" 
+                //need to fix this
+                hidden={store.openList.playlist.published}
                 aria-label="add"
                 id="add-song-button"
                 onClick={handleAddNewSong}
@@ -48,7 +57,7 @@ function EditToolbar(props) {
             <Box sx={{display: "flex", flexDirection: "row", width: "100%", marginTop: "5%" }}>
             <Button 
                 sx={{marginLeft:"2%", marginRight:"5%"}}
-                disabled={!store.canUndo()}
+                disabled={!store.canUndo() || idNamePair.published}
                 id='undo-button'
                 onClick={handleUndo}
                 variant="contained">
@@ -56,7 +65,7 @@ function EditToolbar(props) {
             </Button>
             <Button 
                 sx={{marginLeft:"2%", marginRight:"5%"}}
-                disabled={!store.canRedo()}
+                disabled={!store.canRedo() || idNamePair.published}
                 id='redo-button'
                 onClick={handleRedo}
                 variant="contained">
@@ -64,9 +73,9 @@ function EditToolbar(props) {
             </Button>
             <Button
                 sx={{marginLeft:"2%", marginRight:"5%"}}
-                disabled={!store.canAddNewSong()}
+                disabled={idNamePair.published===true}
                 id='add-song-button'
-                onClick={handleAddNewSong}
+                onClick={handlePublish}
                 variant="contained">
                 Publish
             </Button>

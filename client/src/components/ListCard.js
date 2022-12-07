@@ -100,10 +100,11 @@ function ListCard(props) {
         event.stopPropagation();
         store.updateYouTubePlaylist(idNamePair._id);
     }
-
-    let collapse = 
+    let collapse = '';
+    if(open)
+    collapse = 
         <Box>
-            <Collapse hidden={!open} in={store.openList.value === idNamePair._id} timeout="auto" unmountOnExit width="90%">
+            <Collapse in={store.openList.value === idNamePair._id} timeout="auto" unmountOnExit width="90%">
                 <SongWorkspace changed={changed} idNamePair={idNamePair} />
             </Collapse>
         </Box>
@@ -116,71 +117,62 @@ function ListCard(props) {
     if (store.isListNameEditActive) {
         cardStatus = true;
     }
-    let cardElement =
-        <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
-            sx={{borderRadius:"10px", p: "5px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', flexDirection: "column", p: 1 }}
-            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
-            button
-            onClick={(event) => {
-                handleClick(event, idNamePair._id)
-            }}
-        >
-            
+    let inner="";
+    console.log(idNamePair.publishedDate);
+    if(idNamePair.published===true){
+    inner =
             <Stack sx={{ p: 1, width: "100%"}}>
                 <Box sx={{p:1, display:'inline-flex'}}>
                 <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
-                        <Typography>By:{} </Typography>
-                        <Typography>Published: {}</Typography></Box>
+                        <Typography>By:{idNamePair.ownerEmail} </Typography>
+                        <Typography>Published: {idNamePair.publishedDate}</Typography></Box>
                     <IconButton onClick={(event) => {
                             handleDeleteList(event, idNamePair._id)
                         }} aria-label='like'>
                         <ThumbUpOffAltIcon style={{fontSize:'24pt'}} />
                     </IconButton>
-                    <Typography >Num Likes</Typography>
+                    <Typography sx={{p:1, display:'inline-flex'}} >{idNamePair.likes}</Typography>
                     <IconButton onClick={(event) => {
                             handleDeleteList(event, idNamePair._id)
                         }} aria-label='dislike'>
                         <ThumbDownOffAltIcon style={{fontSize:'24pt'}} />
                     </IconButton>
-                    <Typography>Num Disikes</Typography>
+                    <Typography sx={{p:1, display:'inline-flex'}}>{idNamePair.dislikes}</Typography>
                 </Box>
                 <Box sx={{ p: 1 , display: "inline-flex", alignItems: "right"}}>
-                    <Typography>Listens: </Typography>
+                    <Typography>Listens: {idNamePair.listens}</Typography>
                 </Box>
             </Stack>
+    }else{
+        inner = 
+            <Box sx={{ p: 1, flexGrow: 1, width: "100%" }}>{idNamePair.name}
+            <Typography>By:{} </Typography></Box>
+    }
+
+    let cardElement = 
+        <ListItem
+            id={idNamePair._id}
+            key={idNamePair._id}
+            sx={{borderRadius:"25px", p: "5px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', flexDirection: "column",  p: 1 }}
+            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
+            button
+            onClick={(event) => {
+                handleLoadList(event, idNamePair._id)
+            }}
+        >
+            {inner}
             <Stack width="100%" bgcolor="transparent">
             <Grid item >
                         {collapse}
             </Grid>
             </Stack>
             <Grid container direction='row' justifyContent='flex-end' alignItems='flex-end'>
-                    <IconButton onClick={open ? handleCloseList : handleOpenList(idNamePair._id)} aria-label='edit'>
-                            {open ? <KeyboardDoubleArrowUpIcon/> : <KeyboardDoubleArrowDownIcon/>}
-                    </IconButton>
-                </Grid>
+                <IconButton onClick={open ? handleCloseList : handleOpenList(idNamePair._id)} aria-label='edit'>
+                    {open ? <KeyboardDoubleArrowUpIcon/> : <KeyboardDoubleArrowDownIcon/>}
+                </IconButton>
+            </Grid>
         </ListItem>
-
-        // let unpublishedCardElement = 
-        // <ListItem
-        //     id={idNamePair._id}
-        //     key={idNamePair._id}
-        //     sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '2px', display: 'flex', p: 1 }}
-        //     style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
-        //     button
-        //     onClick={(event) => {
-        //         handleLoadList(event, idNamePair._id)
-        //     }}
-        // >
-        //     <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
-        //     <Typography>By:{} </Typography></Box>
-        //     <Box sx={{ p: 1 , alignItems: "bottom-right"}}>
-        //         <IconButton sx={{alignItems: "bottom-right"}}onClick={handleToggleEdit} aria-label='edit'>
-        //             <KeyboardDoubleArrowDownIcon style={{fontSize:'24pt'}} />
-        //         </IconButton>
-        //     </Box>
-        // </ListItem>
+        
 
     if (editActive) {
         cardElement =

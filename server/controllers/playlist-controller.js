@@ -102,7 +102,7 @@ getPlaylistById = async (req, res) => {
         }
         console.log("Found list: " + JSON.stringify(list));
 
-        // DOES THIS LIST BELONG TO THIS USER?
+        //DOES THIS LIST BELONG TO THIS USER?
         async function asyncFindUser(list) {
             await User.findOne({ email: list.ownerEmail }, (err, user) => {
                 console.log("user._id: " + user._id);
@@ -150,7 +150,14 @@ getPlaylistPairs = async (req, res) => {
                         let list = playlists[key];
                         let pair = {
                             _id: list._id,
-                            name: list.name
+                            name: list.name,
+                            ownerEmail: list.ownerEmail,
+                            published: list.published,
+                            likes: list.likes,
+                            dislikes: list.dislikes,
+                            listens: list.listens,
+                            comments: list.comments,
+                            publishedDate: list.publishedDate
                         };
                         pairs.push(pair);
                     }
@@ -216,6 +223,13 @@ updatePlaylist = async (req, res) => {
 
                     list.name = body.playlist.name;
                     list.songs = body.playlist.songs;
+
+                    list.published = body.playlist.published;
+                    list.publishedDate = body.playlist.publishedDate;
+                    list.likes = body.playlist.likes;
+                    list.dislikes = body.playlist.dislikes;
+                    list.comments = body.playlist.commments;
+                    list.listens = body.playlist.listens;
                     list
                         .save()
                         .then(() => {

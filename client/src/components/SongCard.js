@@ -84,6 +84,7 @@ function SongCard(props) {
             </p>
             <Button
                 sx={{transform:"translate(-10%, -120%)", width:"5px", height:"30px"}}
+                disabled={store.openList.playlist.published}
                 variant="contained"
                 id={"remove-song-" + index}
                 className="list-card-button"
@@ -91,6 +92,7 @@ function SongCard(props) {
             {/* </Box>  */}
             <Button
                 sx={{transform:"translate(-10%, -120%)", width:"5px", height:"30px"}}
+                disabled={store.openList.playlist.published}
                 variant="contained"
                 id={"edit-song-" + index}
                 className="list-card-button"

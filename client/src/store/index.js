@@ -415,7 +415,7 @@ function GlobalStoreContextProvider(props) {
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
         let newListName = "Untitled" + store.newListCounter;
-        const response = await api.createPlaylist(newListName, [], auth.user.email);
+        const response = await api.createPlaylist(newListName, [], auth.user.email, false, 0, 0, 0, "", []);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
             tps.clearAllTransactions();
@@ -754,6 +754,28 @@ function GlobalStoreContextProvider(props) {
                 });
             }
         }
+    }
+
+    store.publishList = function(){
+        tps.clearAllTransactions();
+        store.currentList.published = true;
+        console.log(store.currentList.published);
+        store.currentList.publishedDate = (new Date()).toLocaleString("en-us", {year:"numeric", month: "short", day:"numeric"});
+        store.updateCurrentList();
+        store.loadIdNamePairs();
+    }
+
+    store.loadIdNamePairs1 = async function (){
+        const response = await api.getPlaylistPairs();
+    if (response.data.success) {
+      let pairsArray = response.data.idNamePairs;
+      storeReducer({
+        type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+        payload: pairsArray,
+      });
+    } else {
+      console.log("API FAILED TO GET THE LIST PAIRS");
+    }
     }
 
     function KeyPress(event) {

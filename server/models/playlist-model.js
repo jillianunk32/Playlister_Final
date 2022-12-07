@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-/*
-    This is where we specify the format of the data we're going to put into
-    the database.
-    
-    @author McKilla Gorilla
-*/
+
 const playlistSchema = new Schema(
     {
         name: { type: String, required: true },
@@ -14,7 +9,13 @@ const playlistSchema = new Schema(
             title: String,
             artist: String,
             youTubeId: String
-        }], required: true }
+        }], required: true },
+        published: {type: Boolean, required: true},
+        likes: {type: Number},
+        dislikes: {type: Number},
+        listens: {type: Number},
+        publishedDate: {type: String},
+        comments: {type: [{user: String, comment: String}]},
     },
     { timestamps: true },
 )

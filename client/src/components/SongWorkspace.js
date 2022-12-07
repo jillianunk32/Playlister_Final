@@ -29,6 +29,7 @@ function SongWorkspace(props){
 
 
     let songs = '';
+    console.log("openlist"+store.openList);
     if(store.openList && store.openList.playlist.songs.length!==0){
         songs =
         <List 
