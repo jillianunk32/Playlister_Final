@@ -4,7 +4,7 @@ import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
 import backgroundlogo from '../images/playlisterlogo.png'
 
-import EditToolbar from './EditToolbar'
+// import EditToolbar from './EditToolbar'
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
@@ -78,13 +78,13 @@ export default function AppBanner() {
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>        
 
-    let editToolbar = "";
+    // let editToolbar = "";
     let menu = loggedOutMenu;
     if (auth.loggedIn) {
         menu = loggedInMenu;
-        if (store.currentList) {
-            editToolbar = <EditToolbar />;
-        }
+        // if (store.currentList) {
+        //     editToolbar = <EditToolbar />;
+        // }
     }
     
     function getAccountMenu(loggedIn) {
@@ -99,7 +99,7 @@ export default function AppBanner() {
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static" sx={{backgroundColor: "#D3D3D3"}}>
-                <Toolbar>
+                <Toolbar sx={{width:"100%"}}>
                     <Typography                        
                         variant="h4"
                         noWrap
@@ -110,8 +110,8 @@ export default function AppBanner() {
                             <img src={backgroundlogo} width={100} height={50} alt=""/>
                         </Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
-                    <Box sx={{ height: "90px", display: { xs: 'none', md: 'flex' } }}>
+                    {/* <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box> */}
+                    <Box sx={{ height: "90px", marginLeft: "88%", display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
                             edge="end"

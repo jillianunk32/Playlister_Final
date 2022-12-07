@@ -34,4 +34,4 @@ export {
     RegisterScreen,
     SplashScreen,
     Statusbar, 
-    WorkspaceScreen }
+    WorkspaceScreen}

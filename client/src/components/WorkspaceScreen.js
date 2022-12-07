@@ -12,22 +12,15 @@ import { GlobalStoreContext } from '../store/index.js'
     
     @author McKilla Gorilla
 */
-function WorkspaceScreen() {
+function WorkspaceScreen(props) {
     const { store } = useContext(GlobalStoreContext);
     store.history = useHistory();
     
-    let modalJSX = "";
-    if (store.isEditSongModalOpen()) {
-        modalJSX = <MUIEditSongModal />;
-    }
-    else if (store.isRemoveSongModalOpen()) {
-        modalJSX = <MUIRemoveSongModal />;
-    }
     return (
         <Box id="list-selector-list">
         <List 
             id="playlist-cards" 
-            sx={{overflow: 'scroll', height: '87%', width: '100%', bgcolor: 'background.paper'}}
+            sx={{overflow: 'scroll', height: '87%', width: '100%'}}
         >
             {
                 store.currentList.songs.map((song, index) => (
@@ -40,7 +33,6 @@ function WorkspaceScreen() {
                 ))  
             }
          </List>            
-         { modalJSX }
          </Box>
     )
 }

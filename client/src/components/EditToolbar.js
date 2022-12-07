@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
-import RedoIcon from '@mui/icons-material/Redo';
-import UndoIcon from '@mui/icons-material/Undo';
-import CloseIcon from '@mui/icons-material/HighlightOff';
+import Box from '@mui/material/Box';
+import {Grid, Typography, List, ListItem, Card, Container} from '@mui/material';
 
 /*
     This toolbar is a functional React component that
@@ -12,10 +12,12 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
     
     @author McKilla Gorilla
 */
-function EditToolbar() {
+function EditToolbar(props) {
     const { store } = useContext(GlobalStoreContext);
+    const {changed, idNamePair} = props;
 
-    function handleAddNewSong() {
+    function handleAddNewSong(event) {
+        console.log("add")
         store.addNewSong();
     }
     function handleUndo() {
@@ -27,37 +29,64 @@ function EditToolbar() {
     function handleClose() {
         store.closeCurrentList();
     }
+    function handleDeleteList(event) {
+        event.stopPropagation();
+        store.markListForDeletion(idNamePair._id);
+    }
     return (
-        <div id="edit-toolbar">
-            <Button
-                disabled={!store.canAddNewSong()}
-                id='add-song-button'
+        <Box sx={{marginTop: "10%", display: "flex", flexDirection: "column", width: "100%" }}>
+            <Box sx={{width:"100%"}}>
+            <Card
+                color="primary" 
+                aria-label="add"
+                id="add-song-button"
                 onClick={handleAddNewSong}
-                variant="contained">
+            >
                 <AddIcon />
-            </Button>
+            </Card>
+            </Box>
+            <Box sx={{display: "flex", flexDirection: "row", width: "100%", marginTop: "5%" }}>
             <Button 
+                sx={{marginLeft:"2%", marginRight:"5%"}}
                 disabled={!store.canUndo()}
                 id='undo-button'
                 onClick={handleUndo}
                 variant="contained">
-                    <UndoIcon />
+                 Undo
             </Button>
             <Button 
+                sx={{marginLeft:"2%", marginRight:"5%"}}
                 disabled={!store.canRedo()}
                 id='redo-button'
                 onClick={handleRedo}
                 variant="contained">
-                    <RedoIcon />
+                Redo
+            </Button>
+            <Button
+                sx={{marginLeft:"2%", marginRight:"5%"}}
+                disabled={!store.canAddNewSong()}
+                id='add-song-button'
+                onClick={handleAddNewSong}
+                variant="contained">
+                Publish
+            </Button>
+            <Button 
+                sx={{marginLeft:"2%", marginRight:"5%"}}
+                disabled={!store.canClose()}
+                id='delete-list-button'
+                onClick={handleDeleteList}
+                variant="contained">
+                Delete
             </Button>
             <Button 
                 disabled={!store.canClose()}
                 id='close-button'
                 onClick={handleClose}
                 variant="contained">
-                    <CloseIcon />
+                Duplicate
             </Button>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

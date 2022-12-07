@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { GlobalStoreContext } from '../store'
+import { useState } from 'react'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
+import YouTubeComments from './YouTubeComments'
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
@@ -15,7 +17,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SortIcon from '@mui/icons-material/Sort';
 
 
-import {Box, Typography, IconButton, TextField} from '@mui/material/';
+import {Box, Typography, IconButton, TextField, Grid} from '@mui/material/';
 import YouTubePlayer from './YouTubePlayer';
 /*
     This React component lists all the top5 lists in the UI.
@@ -24,23 +26,42 @@ import YouTubePlayer from './YouTubePlayer';
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
+    const changed = useRef(false);
+
     useEffect(() => {
         store.loadIdNamePairs();
-    }, []);
+    }, [changed.current]);
+
+    const handleAddList = () => {
+        store.createNewList();
+        toggleChanged();
+    }
+
+    const handleOpen = (id) => {
+        store.openListEdit(id);
+    }
+
+    const toggleChanged = () => {
+        changed.current = !(changed.current);
+    }
 
     function handleCreateNewList() {
+        console.log(store.newListConter);
         store.createNewList();
     }
     let listCard = "";
     if (store) {
         listCard = 
-            <List sx={{width: '100%', bgcolor: 'background.paper', mb:"20px" }}>
+            <List sx={{overflow:'auto', width: '90%', left: '5%', height: '100%'}}>
             {
                 store.idNamePairs.map((pair) => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
-                        selected={false}
+                        changed={toggleChanged}
+                        open={store.open}
+                        setopen={handleOpen}
+                        selected={pair._id === ((store.currentList) ? store.currentList._id : false)}
                     />
                 ))
                 
@@ -68,22 +89,22 @@ const HomeScreen = () => {
                     <IconButton><SortIcon sx={{fontSize: 42}}/></IconButton>
                 </Box>    
             </div>
+            <Grid container sx={{height: '100%'}}>
+                <Grid item xs={7} sx={{overflow: 'auto', height: '100%'}}>
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
                 {
                     listCard
                 }
                 <MUIDeleteModal />
             </Box>
-            <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '50%'}}>
-            <Tabs id="play-com" aria-label="basic tabs example">
-                <Tab label="Player" />
-                <Tab label="Comments" />
-            </Tabs>
-            <div id="youtube-player">
-                    <YouTubePlayer sx={{marginTop: "5%"}}/>
-                    <Typography sx={{textAlign: "center", fontSize: "24pt"}}>Now Playing</Typography>
-            </div>
+            </Grid>
+            <Grid item xs={4}>
+            <Box id = "youtube-comments">
+                <YouTubeComments/>
             </Box>
+            </Grid>
+            </Grid>
+            
         </div>)
 }
 

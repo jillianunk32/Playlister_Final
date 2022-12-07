@@ -12,13 +12,11 @@ const style1 = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 345,
-    height: 250,
-    backgroundSize: "contain",
-    backgroundImage: `url(https://i.insider.com/602ee9ced3ad27001837f2ac?})`,
-    border: '3px solid #000',
-    padding: '20px',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
     boxShadow: 24,
+    p: 4,
 };
 
 export default function MUIEditSongModal() {
@@ -41,20 +39,23 @@ export default function MUIEditSongModal() {
     }
 
     function handleUpdateTitle(event) {
+        event.stopPropagation();
         setTitle(event.target.value);
     }
 
     function handleUpdateArtist(event) {
+        event.stopPropagation();
         setArtist(event.target.value);
     }
 
     function handleUpdateYouTubeId(event) {
+        event.stopPropagation();
         setYouTubeId(event.target.value);
     }
 
     return (
         <Modal
-            open={store.currentModal == "EDIT_SONG"}
+            open={store.currentModal === "EDIT_SONG"}
         >
         <Box sx={style1}>
             <div id="edit-song-modal" data-animation="slideInOutLeft">
@@ -62,7 +63,7 @@ export default function MUIEditSongModal() {
                 Edit Song
             </Typography>
             <Divider sx={{borderBottomWidth: 5, p: '5px', transform: 'translate(-5.5%, 0%)', width:377}}/>
-            <Typography sx={{mt: "10px", color: "#702963", fontWeight:"bold", fontSize:"30px"}} id="modal-modal-title" variant="h6" component="h2">
+            <Typography sx={{mt: "10px", color: "#702963", fontWeight:"bold", fontSize:"30px"}} id="modal-modal-title" >
                 Title: <input id="edit-song-modal-title-textfield" className='modal-textfield' type="text" defaultValue={title} onChange={handleUpdateTitle} />
             </Typography>
             <Typography sx={{color: "#702963", fontWeight:"bold", fontSize:"30px"}} id="modal-modal-artist" variant="h6" component="h2">

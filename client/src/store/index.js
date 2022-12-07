@@ -31,7 +31,12 @@ export const GlobalStoreActionType = {
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
     EDIT_SONG: "EDIT_SONG",
     REMOVE_SONG: "REMOVE_SONG",
-    HIDE_MODALS: "HIDE_MODALS"
+    HIDE_MODALS: "HIDE_MODALS",
+    CHANGE_CURRENT_PLAYING_SONG: "CHANGE_CURRENT_PLAYING_SONG",
+    OPEN_LIST: "OPEN_LIST",
+    YOUTUBE_PLAYLIST: "YOUTUBE_PLAYLIST",
+    YOUTUBE_CURR_SONG: "YOUTUBE_CURR_SONG",
+    YOUTUBE_PLAYER: "YOUTUBE_PLAYER"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -58,7 +63,11 @@ function GlobalStoreContextProvider(props) {
         newListCounter: 0,
         listNameActive: false,
         listIdMarkedForDeletion: null,
-        listMarkedForDeletion: null
+        listMarkedForDeletion: null,
+        youTubePlaylist: [],
+        youTubeCurrentSong: null,
+        openList: {},
+        youTubePlayer: null,
     });
     const history = useHistory();
 
@@ -84,7 +93,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             // STOP EDITING THE CURRENT LIST
@@ -98,7 +111,10 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList
                 })
             }
             // CREATE A NEW LIST
@@ -112,7 +128,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter + 1,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
@@ -126,7 +146,10 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -140,7 +163,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: payload.id,
-                    listMarkedForDeletion: payload.playlist
+                    listMarkedForDeletion: payload.playlist,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             // UPDATE A LIST
@@ -154,7 +181,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: payload,
+                    youTubeCurrentSong: payload,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             // START EDITING A LIST NAME
@@ -168,7 +199,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: true,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             // 
@@ -182,7 +217,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: store.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             case GlobalStoreActionType.REMOVE_SONG: {
@@ -195,7 +234,11 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
                 });
             }
             case GlobalStoreActionType.HIDE_MODALS: {
@@ -208,7 +251,96 @@ function GlobalStoreContextProvider(props) {
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
-                    listMarkedForDeletion: null
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
+                });
+            }
+            case GlobalStoreActionType.CHANGE_CURRENT_PLAYING_SONG: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: payload.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
+                });
+            }
+            case GlobalStoreActionType.OPEN_LIST: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: payload.playlist,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: store.youTubeCurrentSong,
+                    openList: payload,
+                    youTubePlayer: null,
+                });
+            }
+            case GlobalStoreActionType.YOUTUBE_PLAYLIST: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: payload.playlist,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: payload,
+                    youTubeCurrentSong: store.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: null,
+                });
+            }
+            case GlobalStoreActionType.YOUTUBE_CURR_SONG: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.currentList,
+                    youTubeCurrentSong: payload,
+                    openList: store.openList,
+                    youTubePlayer: null,
+                });
+            }
+            case GlobalStoreActionType.YOUTUBE_PLAYER: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    youTubePlaylist: store.youTubePlaylist,
+                    youTubeCurrentSong: store.youTubeCurrentSong,
+                    openList: store.openList,
+                    youTubePlayer: payload.youTubePlayer
                 });
             }
             default:
@@ -295,7 +427,8 @@ function GlobalStoreContextProvider(props) {
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-            history.push("/playlist/" + newList._id);
+            history.push("/");
+            store.loadIdNamePairs();
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
@@ -379,6 +512,7 @@ function GlobalStoreContextProvider(props) {
         return store.currentModal === CurrentModal.DELETE_LIST;
     }
     store.isEditSongModalOpen = () => {
+        console.log(store.currentModal);
         return store.currentModal === CurrentModal.EDIT_SONG;
     }
     store.isRemoveSongModalOpen = () => {
@@ -404,7 +538,7 @@ function GlobalStoreContextProvider(props) {
                         type: GlobalStoreActionType.SET_CURRENT_LIST,
                         payload: playlist
                     });
-                    history.push("/playlist/" + playlist._id);
+                    // history.push("/");
                 }
             }
         }
@@ -458,6 +592,7 @@ function GlobalStoreContextProvider(props) {
 
         // NOW MAKE IT OFFICIAL
         store.updateCurrentList();
+        history.push("/");
     }
     // THIS FUNCTION UPDATES THE TEXT IN THE ITEM AT index TO text
     store.updateSong = function(index, songData) {
@@ -544,6 +679,81 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
             payload: null
         });
+    }
+
+    store.setCurrentYouTubeSong= function (index){
+        storeReducer({
+            type: GlobalStoreActionType.CHANGE_CURRENT_PLAYING_SONG,
+            payload: index
+        });
+    }
+
+    store.openListEdit = function (playlist){
+        console.log(playlist)
+        let list = (store.openList === playlist ? false : playlist)
+        async function asyncOpen(playlist){
+            let response = await api.getPlaylistById(playlist);
+            if(response.data.success){
+                let p1 = response.data.playlist;
+            storeReducer({
+                type: GlobalStoreActionType.OPEN_LIST,
+                payload: {value: list, playlist: p1}
+            });
+        }
+        }
+           asyncOpen(playlist);     
+    }
+
+    store.closeListEdit = function (id){
+        let playlist = store.openList;
+        delete playlist[id];
+        storeReducer({
+            type: GlobalStoreActionType.OPEN_LIST,
+            payload: playlist
+        });
+        storeReducer({
+            type: GlobalStoreActionType.SET_CURRENT_LIST,
+            payload: null
+        });
+        history.push("/");
+
+    }
+
+    store.setCurrentYouTubeSong = function (index){
+        console.log(index);
+        let song = store.currentList.songs[index];
+        storeReducer({
+            type: GlobalStoreActionType.YOUTUBE_CURR_SONG,
+            payload: song
+        });
+    }
+
+    store.addYouTubePlayer = function(player) {
+        storeReducer({
+            type: GlobalStoreActionType.YOUTUBE_PLAYER,
+            payload: {youTubePlayer: player}
+        });
+    }
+
+    store.setCurrentYouTubeList = function (playlist){
+        console.log(playlist);
+        storeReducer({
+            type: GlobalStoreActionType.YOUTUBE_PLAYLIST,
+            payload: playlist
+        });
+    }
+
+    store.updateYouTubePlaylist = function (id){
+        async function awaitChange(id){
+            let response = await api.getPlaylistById(id);
+            if (response.data.success){
+                let playlist = response.data.playlist;
+                storeReducer({
+                    type: GlobalStoreActionType.YOUTUBE_PLAYLIST,
+                    payload: playlist
+                });
+            }
+        }
     }
 
     function KeyPress(event) {
