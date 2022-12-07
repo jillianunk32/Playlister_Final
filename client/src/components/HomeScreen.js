@@ -78,6 +78,7 @@ const HomeScreen = () => {
     function handleGroupsIcon(event){
         event.stopPropagation();
         store.changeHomeScreenView(2);
+        store.findPublishedLists();
     }
     function handlePersonIcon(event){
         event.stopPropagation();

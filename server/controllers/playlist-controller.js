@@ -198,9 +198,6 @@ getPlaylistsPairsSearch = async (req, res) => {
             return res.status(400).json({ success: false, error: err })
         }
         if (!playlists) {
-            // return res
-            //     .status(404)
-            //     .json({ success: false, error: `Playlists not found` })
             return res.status(200).json({ success: true, idNamePairs: {} })
         }else{
             let pairs = [];
@@ -294,6 +291,39 @@ updatePlaylist = async (req, res) => {
         asyncFindUser(playlist);
     })
 }
+getPublishedPlaylists = async (req, res) => {
+    if(auth.verifyUser(req) === null){
+        return res.status(400).json({
+            errorMessage: 'UNAUTHORIZED'
+        })
+    }
+    await Playlist.find({ published: true}, (err, playlists) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!playlists) {
+            return res.status(200).json({ success: true, idNamePairs: {} })
+        }else{
+            let pairs = [];
+            for (let key in playlists){
+                let list = playlists[key];
+                let pair ={
+                    _id: list._id,
+                    name: list.name,
+                    ownerEmail: list.ownerEmail,
+                    published: list.published,
+                    likes: list.likes,
+                    dislikes: list.dislikes,
+                    listens: list.listens,
+                    comments: list.comments,
+                    publishedDate: list.publishedDate
+                };
+                pairs.push(pair);
+            }
+            return res.status(200).json({ success: true, idNamePairs: pairs })
+        }
+    }).catch(err => console.log(err))
+}
 module.exports = {
     createPlaylist,
     deletePlaylist,
@@ -301,5 +331,6 @@ module.exports = {
     getPlaylistPairs,
     getPlaylists,
     updatePlaylist,
-    getPlaylistsPairsSearch
+    getPlaylistsPairsSearch,
+    getPublishedPlaylists
 }

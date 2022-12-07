@@ -7,6 +7,7 @@ import MoveSong_Transaction from '../transactions/MoveSong_Transaction'
 import RemoveSong_Transaction from '../transactions/RemoveSong_Transaction'
 import UpdateSong_Transaction from '../transactions/UpdateSong_Transaction'
 import AuthContext from '../auth'
+import { Global } from '@emotion/react'
 
 /*
     This is our global data store. Note that it uses the Flux design pattern,
@@ -887,25 +888,15 @@ function GlobalStoreContextProvider(props) {
         findSearchedPlaylistPairs(value);
     }
 
-    store.loadSearchedPairs = function (){
-        console.log(store.homeScreenView);
-        searchVal = store.searchValue[0].name;
-        async function findSearchedPlaylistPairs(searchVal){
-            let response = '';
-            if(store.homeScreenView===1 || store.homeScreenView===2){
-                response = await api.getPlaylistsPairsSearch(searchVal);
-            }
-            else{
-                response = await api.getPlaylistPairs(searchVal);
-            }
-            let searchValue = response.data.idNamePairs;
-            console.log(searchValue);
+    store.findPublishedLists = function (){
+        async function findAllPublishedLists(){
+            let response = await api.getPublishedPlaylists();
             storeReducer({
-                type: GlobalStoreActionType.SEARCH_VALUE,
-                payload: searchValue,
-              });
+                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                payload: response.data.idNamePairs
+            })
         }
-        findSearchedPlaylistPairs(searchVal);
+        findAllPublishedLists();
     }
 
     function KeyPress(event) {
