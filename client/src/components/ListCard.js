@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
-import { Typography, Button, Grid, Collapse } from '@mui/material';
+import { Typography, Button, Grid, Collapse, fabClasses } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
@@ -24,6 +24,7 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const [open, setopen] = useState(false);
+    const [updated, setupdated] = useState(false);
     const { idNamePair, selected,  changed, search} = props;
 
     function handleLoadList(event, id) {
@@ -100,6 +101,18 @@ function ListCard(props) {
         event.stopPropagation();
         store.updateYouTubePlaylist(idNamePair._id);
     }
+    function handleDislike (event){
+        setupdated(true);
+        event.stopPropagation();
+        store.addDislike(idNamePair._id);
+        setupdated(false);
+    }
+    function handleLike (event){
+        setupdated(true);
+        event.stopPropagation();
+        store.addLike(idNamePair._id);
+        setupdated(false);
+    }
     let collapse = '';
     if(open)
     collapse = 
@@ -127,13 +140,13 @@ function ListCard(props) {
                         <Typography>By:{idNamePair.ownerEmail} </Typography>
                         <Typography>Published: {idNamePair.publishedDate}</Typography></Box>
                     <IconButton onClick={(event) => {
-                            handleDeleteList(event, idNamePair._id)
+                            handleLike(event)
                         }} aria-label='like'>
                         <ThumbUpOffAltIcon style={{fontSize:'24pt'}} />
                     </IconButton>
                     <Typography sx={{p:1, display:'inline-flex'}} >{idNamePair.likes}</Typography>
                     <IconButton onClick={(event) => {
-                            handleDeleteList(event, idNamePair._id)
+                            handleDislike(event)
                         }} aria-label='dislike'>
                         <ThumbDownOffAltIcon style={{fontSize:'24pt'}} />
                     </IconButton>

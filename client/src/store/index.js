@@ -7,7 +7,7 @@ import MoveSong_Transaction from '../transactions/MoveSong_Transaction'
 import RemoveSong_Transaction from '../transactions/RemoveSong_Transaction'
 import UpdateSong_Transaction from '../transactions/UpdateSong_Transaction'
 import AuthContext from '../auth'
-import { Global } from '@emotion/react'
+
 
 /*
     This is our global data store. Note that it uses the Flux design pattern,
@@ -897,6 +897,62 @@ function GlobalStoreContextProvider(props) {
             })
         }
         findAllPublishedLists();
+    }
+
+    store.updateList = function(id){
+        async function getPlaylistForUpdate(id){
+            let response = await api.getPlaylistById(id);
+            if(response.data.success){
+                let playlist = response.data.playlist;
+                async function updateListById(id){
+                    let r2 = await api.updatePlaylistById(id, playlist);
+                    if(r2.data.success){
+                        console.log("updated");
+                    }
+                    
+                    store.loadIdNamePairs();
+                    history.push("/");
+                }
+                updateListById(id);
+            }
+        }
+        getPlaylistForUpdate(id);
+    }
+
+    store.addDislike = function (id){
+        async function getListForDislike(id){
+            let response = await api.getPlaylistById(id);
+            if(response.data.success){
+                let playlist = response.data.playlist;
+                playlist.dislikes+=1;
+                async function updateListById(id){
+                    let r2 = await api.updatePlaylistById(id, playlist);
+                    if(r2.data.success){
+                        console.log("updated");
+                    }
+                }
+                updateListById(id);
+        }
+        }
+        getListForDislike(id);
+    }
+
+    store.addLike = function (id){
+        async function getListForDislike(id){
+            let response = await api.getPlaylistById(id);
+            if(response.data.success){
+                let playlist = response.data.playlist;
+                playlist.likes+=1;
+                async function updateListById(id){
+                    let r2 = await api.updatePlaylistById(id, playlist);
+                    if(r2.data.success){
+                        console.log("updated");
+                    }
+                }
+                updateListById(id);
+        }
+        }
+        getListForDislike(id);
     }
 
     function KeyPress(event) {
