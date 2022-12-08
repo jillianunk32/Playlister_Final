@@ -4,15 +4,26 @@ import GlobalStoreContext from '../store';
 import AuthContext from '../auth';
 import {Box, Typography, IconButton, Card, Grid, List, TextField} from '@mui/material';
 
-function Comments() {
+function Comments(props) {
     const {store} = useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContext);
-
-    return (
-        <Box>
-            <Card height='100px' sx={{bgcolor:'white'}}>
-                
+    const {user} = props;
+    let comment = '';
+    let arr = [];
+    for (var o in store.youTubePlaylist.comments){
+        comment = store.youTubePlaylist.comments[o];
+        arr.push(
+            <Card height='40px' sx={{bgcolor:'white'}}>
+                <Typography>{user}</Typography>
+                <br></br>
+                <Typography> {comment}</Typography>
             </Card>
+        );
+    }
+    return (
+        
+        <Box >
+            {arr}
         </Box>
     )
 }

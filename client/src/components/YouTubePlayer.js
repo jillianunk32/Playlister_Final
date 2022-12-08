@@ -21,17 +21,18 @@ export default function YouTubePlayer(props) {
     // FROM ONE SONG TO THE NEXT
 
     // THIS HAS THE YOUTUBE IDS FOR THE SONGS IN OUR PLAYLIST
+
     let playlist = store.youTubePlaylist;
     if(!playlist || !store.youTubeCurrentSong){
         return "";
     }
 
     // THIS IS THE INDEX OF THE SONG CURRENTLY IN USE IN THE PLAYLIST
-    let currentSong = store.youTubeCurrentSong;
+    let currentSong = 0;
 
     const playerOptions = {
-        height: '380',
-        width: '630',
+        height: '350',
+        width: '600',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters,
             autoplay: 0,
@@ -48,6 +49,9 @@ export default function YouTubePlayer(props) {
         if(store.youTubeCurrentSong){
             song = store.youTubeCurrentSong.youTubeId;
         }
+        else if(!store.youTubeCurrentSong && playlist && playlist.songs.length>0){
+          song = playlist.songs[0];
+        }
         player.loadVideoById(song);
         player.playVideo();
     }
@@ -56,16 +60,18 @@ export default function YouTubePlayer(props) {
     function incSong() {
         currentSong++;
         currentSong = currentSong % playlist.length;
+        console.log(playlist.songs)
+        store.setCurrentYouTubeSong(currentSong);
     }
 
     function onPlayerReady(event) {
         loadAndPlayCurrentSong(event.target);
         event.target.playVideo();
-        // store.addYouTubePlayer(event.target);
+        store.addYouTubePlayer(event.target);
     }
 
     // function nextSong(){
-    //     let index = store.currentYouTubePlaylist.songs.indexOf(store.youTubeCurrentSong)+1;
+    //     let index = store.currentYouTubePlaylist.songs.indexOf(store.youTubeCurrentSong[0])+1;
     //     if(index+1 === store.currentYouTubePlaylist.songs.length){
     //         index = store.currentYouTubePlaylist.songs[0];
     //     }
@@ -130,14 +136,17 @@ export default function YouTubePlayer(props) {
         onStateChange={onPlayerStateChange} 
     /> 
     }
+
     return (
-    <div>
+
+    <Box sx={{marginTop: "10%"}}>
         {tube}
           <Box
           sx={{
-            width: "90%",
+            width: "100%",
             backgroundColor: "lightgray",
             borderRadius: "20px",
+            marginTop: "5%"
           }}>
           <Grid container margintop="5px" rowGap="5px">
             <Grid item xs={12} sx={{ fontSize: 30, paddingLeft: "30%" }}>
@@ -172,24 +181,24 @@ export default function YouTubePlayer(props) {
         <Grid item xs={2}/>
           <Grid item xs={2}>
             <Button onClick={prevSong} marginright={"50%"}>
-              <FastRewindIcon sx={{fontSize: 30,color: "#899499",}}/>
+              <FastRewindIcon sx={{fontSize: 40,color: "#899499",}}/>
             </Button>
           </Grid>
           <Grid item xs={2}>
             <Button onClick={stopSong}>
-              <StopIcon sx={{fontSize: 30,color: "#736e62",}}/>
+              <StopIcon sx={{fontSize: 40,color: "#736e62",}}/>
             </Button>
           </Grid>
           <Grid item xs={2}>
             <Button onClick={playSong}>
-              <PlayArrowIcon sx={{fontSize: 30,color: "#736e62",}}/>
+              <PlayArrowIcon sx={{fontSize: 40,color: "#736e62",}}/>
             </Button>
           </Grid>
           <Grid item xs={2}>
             <Button onClick={incSong}>
-              <FastForwardIcon sx={{fontSize: 30,color: "#736e62",}}/>
+              <FastForwardIcon sx={{fontSize: 40,color: "#736e62",}}/>
             </Button>
           </Grid>
           </Grid>
-      </div>);
+      </Box>);
 }

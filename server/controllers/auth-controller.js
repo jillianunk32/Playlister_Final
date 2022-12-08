@@ -21,7 +21,8 @@ getLoggedIn = async (req, res) => {
             user: {
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
-                email: loggedInUser.email
+                email: loggedInUser.email,
+                userName: loggedInUser.userName
             }
         })
     } catch (err) {
@@ -97,9 +98,10 @@ logoutUser = async (req, res) => {
 registerUser = async (req, res) => {
     console.log("REGISTERING USER IN BACKEND");
     try {
-        const { firstName, lastName, email, password, passwordVerify } = req.body;
+        const { firstName, lastName, email, userName, password, passwordVerify } = req.body;
         console.log("create user: " + firstName + " " + lastName + " " + email + " " + password + " " + passwordVerify);
-        if (!firstName || !lastName || !email || !password || !passwordVerify) {
+        if (!firstName || !lastName || !email || !userName || !password || !passwordVerify) {
+            console.log(userName);
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
@@ -132,12 +134,23 @@ registerUser = async (req, res) => {
                 })
         }
 
+        const existingUser1 = await User.findOne({ userName: userName });
+        console.log("existingUser: " + existingUser1);
+        if (existingUser1) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "An account with this user name already exists."
+                })
+        }
+
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const passwordHash = await bcrypt.hash(password, salt);
         console.log("passwordHash: " + passwordHash);
 
-        const newUser = new User({firstName, lastName, email, passwordHash});
+        const newUser = new User({firstName, lastName, email, userName, passwordHash});
         const savedUser = await newUser.save();
         console.log("new user saved: " + savedUser._id);
 
@@ -154,6 +167,7 @@ registerUser = async (req, res) => {
             user: {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,  
+                userName: savedUser.userName,
                 email: savedUser.email              
             }
         })

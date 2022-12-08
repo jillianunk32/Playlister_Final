@@ -10,6 +10,7 @@ const auth = require('../auth')
 */
 createPlaylist = (req, res) => {
     if(auth.verifyUser(req) === null){
+        console.log("4")
         return res.status(400).json({
             errorMessage: 'UNAUTHORIZED'
         })
@@ -17,6 +18,7 @@ createPlaylist = (req, res) => {
     const body = req.body;
     console.log("createPlaylist body: " + JSON.stringify(body));
     if (!body) {
+        console.log("3")
         return res.status(400).json({
             success: false,
             error: 'You must provide a Playlist',
@@ -26,6 +28,7 @@ createPlaylist = (req, res) => {
     const playlist = new Playlist(body);
     console.log("playlist: " + playlist.toString());
     if (!playlist) {
+        console.log("2")
         return res.status(400).json({ success: false, error: err })
     }
 
@@ -43,6 +46,7 @@ createPlaylist = (req, res) => {
                         })
                     })
                     .catch(error => {
+                        console.log("1")
                         return res.status(400).json({
                             errorMessage: 'Playlist Not Created!'
                         })
@@ -151,7 +155,9 @@ getPlaylistPairs = async (req, res) => {
                         let pair = {
                             _id: list._id,
                             name: list.name,
+                            songs: list.songs,
                             ownerEmail: list.ownerEmail,
+                            userName: list.userName,
                             published: list.published,
                             likes: list.likes,
                             dislikes: list.dislikes,
@@ -206,7 +212,9 @@ getPlaylistsPairsSearch = async (req, res) => {
                 let pair ={
                     _id: list._id,
                     name: list.name,
+                    songs: list.songs,
                     ownerEmail: list.ownerEmail,
+                    userName: list.userName,
                     published: list.published,
                     likes: list.likes,
                     dislikes: list.dislikes,
@@ -257,7 +265,7 @@ updatePlaylist = async (req, res) => {
 
                     list.name = body.playlist.name;
                     list.songs = body.playlist.songs;
-
+                    list.userName = body.playlist.userName;
                     list.published = body.playlist.published;
                     list.publishedDate = body.playlist.publishedDate;
                     list.likes = body.playlist.likes;
@@ -310,7 +318,9 @@ getPublishedPlaylists = async (req, res) => {
                 let pair ={
                     _id: list._id,
                     name: list.name,
+                    songs: list.songs,
                     ownerEmail: list.ownerEmail,
+                    userName: list.userName,
                     published: list.published,
                     likes: list.likes,
                     dislikes: list.dislikes,

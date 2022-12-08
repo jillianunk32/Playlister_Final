@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
 import { useState } from 'react'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
@@ -31,6 +32,7 @@ import MUIEditSongModal from './MUIEditSongModal'
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext);
     const changed = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -62,6 +64,10 @@ const HomeScreen = () => {
     const handleOpen = (id) => {
         store.openListEdit(id);
     }
+
+    const handleUpdateYouTubeList = (list) =>{
+      store.updateYouTubePlaylist(list);
+    } 
 
     const toggleChanged = () => {
         changed.current = !(changed.current);
@@ -119,6 +125,7 @@ const HomeScreen = () => {
                         open={store.open}
                         setopen={handleOpen}
                         selected={pair._id === ((store.currentList) ? store.currentList._id : false)}
+                        setlist={handleUpdateYouTubeList}
                     />
                 ))
                 
@@ -195,7 +202,7 @@ const HomeScreen = () => {
       );
     return (
         <div id="playlister-list-selector">
-            <div id="list-selector-heading" >
+            <div id="list-selector-heading">
                 {/* <Typography variant="h1" style={{fontSize: 30}}>Your Playlists</Typography> */}
                 <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
                     <IconButton onClick={handleHomeClick}><HomeIcon sx={{fontSize: 30}}/></IconButton>
@@ -207,19 +214,19 @@ const HomeScreen = () => {
                 </Box>    
             </div>
             <Grid container sx={{height: '100%'}}>
-                <Grid item xs={7} sx={{overflow: 'auto', height: '100%'}}>
+                <Grid item xs={6} sx={{overflow: 'auto', height: '100%'}}>
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
                 {
                     listCard
                 }
                 <MUIDeleteModal />
-                <MUIRemoveSongModal/>
+                {store.isRemoveSongModalOpen() ?<MUIRemoveSongModal/>: ""}
                 {store.isEditSongModalOpen() ? <MUIEditSongModal/> : ""}
             </Box>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
             <Box id = "youtube-comments">
-                <YouTubeComments/>
+                {store.youTubeCurrentSong ? <YouTubeComments/> : <YouTubeComments/>}
             </Box>
             </Grid>
             </Grid>

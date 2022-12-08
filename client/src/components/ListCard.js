@@ -25,7 +25,7 @@ function ListCard(props) {
     const [text, setText] = useState("");
     const [open, setopen] = useState(false);
     const [updated, setupdated] = useState(false);
-    const { idNamePair, selected,  changed, search} = props;
+    const { idNamePair, selected,  changed, search, setlist} = props;
 
     function handleLoadList(event, id) {
         if(store.setCurrentList){
@@ -99,7 +99,12 @@ function ListCard(props) {
 
     const handleClick = (event) => {
         event.stopPropagation();
-        store.updateYouTubePlaylist(idNamePair._id);
+        if(event.detail===2){
+            handleToggleEdit(event);
+        }
+        else if(event.detail===1){
+            setlist(idNamePair.songs);
+        }
     }
     function handleDislike (event){
         setupdated(true);
@@ -113,9 +118,9 @@ function ListCard(props) {
         store.addLike(idNamePair._id);
         setupdated(false);
     }
-    let collapse = '';
+    let work = '';
     if(open)
-    collapse = 
+    work = 
         <Box>
             <Collapse in={store.openList.value === idNamePair._id} timeout="auto" unmountOnExit width="90%">
                 <SongWorkspace changed={changed} idNamePair={idNamePair}/>
@@ -137,7 +142,7 @@ function ListCard(props) {
             <Stack sx={{ p: 1, width: "100%"}}>
                 <Box sx={{p:1, display:'inline-flex'}}>
                 <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}
-                        <Typography>By:{idNamePair.ownerEmail} </Typography>
+                        <Typography>By:{idNamePair.userName} </Typography>
                         <Typography>Published: {idNamePair.publishedDate}</Typography></Box>
                     <IconButton onClick={(event) => {
                             handleLike(event)
@@ -159,7 +164,7 @@ function ListCard(props) {
     }else{
         inner = 
             <Box sx={{ p: 1, flexGrow: 1, width: "100%" }}>{idNamePair.name}
-            <Typography>By:{} </Typography></Box>
+            <Typography>By:{idNamePair.userName} </Typography></Box>
     }
 
     let cardElement = 
@@ -176,7 +181,7 @@ function ListCard(props) {
             {inner}
             <Stack width="100%" bgcolor="transparent">
             <Grid item >
-                        {collapse}
+                        {work}
             </Grid>
             </Stack>
             <Grid container direction='row' justifyContent='flex-end' alignItems='flex-end'>

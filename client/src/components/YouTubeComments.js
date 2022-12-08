@@ -6,48 +6,37 @@ import Comments from './Comments'
 import YouTubePlayer from "./YouTubePlayer"
 
 import {Box, Tabs, Tab} from '@mui/material'
-
-function SwitchTab (props){
-    const {children, value, index, ...other} = props;
-
-    return(
-        <div>
-                <Box sx={{marginTop: "15%"}}>
-                    {children}
-                </Box>
-        </div>
-    );
-}
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 
 function YouTubeComments(props){
     const {store} = useContext(GlobalStoreContext);
-    const [value,setValue] = useState(0);
+    const {auth} = useContext(AuthContext);
+    const [value,setValue] = useState('1');
 
-    const handleChange = (event, newValue) => {
-        event.stopPropagation();
-        setValue(newValue);
-      };
+const handleChange = (event, newValue) => {
+    event.stopPropagation();
+    setValue(newValue);
+  };
 
     return(
-        <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
-            <Tabs id="play-com" aria-label="basic tabs example" onChange={handleChange} defaultValue={0}>
-                <Tab label="Player" />
-                <Tab label="Comments" />
-            </Tabs>
-            <Box height='80%'>
-              <Box>
-                <SwitchTab value={value} index={0} >
-                  <YouTubePlayer/>
-                </SwitchTab>
-              </Box>
-              <Box height='100%'>
-                <SwitchTab value={value} index={1}>
-                  <Comments/>
-                </SwitchTab>
-              </Box>
-            </Box>
-            </Box>
+
+<Box sx={{marginTop: "10%"}}>
+<Box sx={{ padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
+<TabContext value={value}>
+  <TabList onChange={handleChange} aria-label="tabs">
+    <Tab label="Player" value="1" />
+    <Tab label="Comments" value="2" />
+  </TabList>
+
+<TabPanel value="1" sx={{margintop: "10%", marginLeft: "30%"}}><YouTubePlayer/></TabPanel>
+<TabPanel value="2"><Comments user={auth.user.userName}/></TabPanel>
+</TabContext>
+</Box>
+</Box>
+
     )
 }
 
