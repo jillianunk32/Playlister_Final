@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import { useHistory } from 'react-router-dom'
 
 const style1 = {
     position: 'absolute',
@@ -39,17 +40,14 @@ export default function MUIEditSongModal() {
     }
 
     function handleUpdateTitle(event) {
-        event.stopPropagation();
         setTitle(event.target.value);
     }
 
     function handleUpdateArtist(event) {
-        event.stopPropagation();
         setArtist(event.target.value);
     }
 
     function handleUpdateYouTubeId(event) {
-        event.stopPropagation();
         setYouTubeId(event.target.value);
     }
 

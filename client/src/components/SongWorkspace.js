@@ -9,18 +9,18 @@ import MUIRemoveSongModal from './MUIRemoveSongModal'
 import EditToolbar from './EditToolbar';
 
 function SongWorkspace(props){
-    const {changed, idNamePair, search} = props;
+    const {changed, idNamePair} = props;
     const {store} = useContext(GlobalStoreContext);
     store.history = useHistory();
 
-    let modalJSX = "";
-    if (store.isEditSongModalOpen()) {
-        console.log("edit modal open");
-        modalJSX = <MUIEditSongModal />;
-    }
-    else if (store.isRemoveSongModalOpen()) {
-        modalJSX = <MUIRemoveSongModal />;
-    }
+    // let modalJSX = "";
+    // if (store.isEditSongModalOpen()) {
+    //     console.log("edit modal open");
+    //     modalJSX = <MUIEditSongModal />;
+    // }
+    // else if (store.isRemoveSongModalOpen()) {
+    //     modalJSX = <MUIRemoveSongModal />;
+    // }
 
     const changeYouTube = (id) => {
         console.log("id"+id);
@@ -60,8 +60,8 @@ function SongWorkspace(props){
                 </Box>
             </Container>     
             <EditToolbar changed={changed} idNamePair={idNamePair}/>
-            { modalJSX }
         </Box>
+        // { modalJSX }
     )
 }
 

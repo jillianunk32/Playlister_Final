@@ -3,6 +3,7 @@ import { GlobalStoreContext } from '../store'
 import { useState } from 'react'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
+import MUIRemoveSongModal from './MUIRemoveSongModal'
 import YouTubeComments from './YouTubeComments'
 import { useHistory } from 'react-router-dom'
 
@@ -22,6 +23,7 @@ import SortIcon from '@mui/icons-material/Sort';
 
 import {Box, Typography, IconButton, TextField, Grid} from '@mui/material/';
 import YouTubePlayer from './YouTubePlayer';
+import MUIEditSongModal from './MUIEditSongModal'
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -40,19 +42,20 @@ const HomeScreen = () => {
             store.loadIdNamePairs();
             toggleSearch();
             console.log("1")
-        }else if (store.homeScreenView===1 && !store.current){
+        }else if (store.homeScreenView===1 && !search.current){
           store.loadIdNamePairs();
           console.log("2")
         }
         else if(store.homeScreenView!==1 && search.current){
           store.loadIdNamePairs();
+          toggleSearch();
           console.log("3")
         }
         else if(store.homeScreenView!==1 && !search.current){
-          toggleSearch();
+          // toggleSearch();
           console.log("4")
         }
-        toggleSearch();
+        // toggleSearch();
           console.log(search.current);
     }, [changed.current, search.current]);
 
@@ -103,7 +106,7 @@ const HomeScreen = () => {
         setAnchorEl(event.currentTarget);
       };
     let listCard = "";
-    console.log(search)
+
     if (store) {
         listCard = 
             <List sx={{overflow:'auto', width: '90%', left: '5%', height: '100%'}}>
@@ -210,6 +213,8 @@ const HomeScreen = () => {
                     listCard
                 }
                 <MUIDeleteModal />
+                <MUIRemoveSongModal/>
+                {store.isEditSongModalOpen() ? <MUIEditSongModal/> : ""}
             </Box>
             </Grid>
             <Grid item xs={4}>

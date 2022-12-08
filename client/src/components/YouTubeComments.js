@@ -31,18 +31,18 @@ function YouTubeComments(props){
 
     return(
         <Box sx={{padding: 1, display: "flex", alignItems: "center", width: '100%'}}>
-            <Tabs id="play-com" aria-label="basic tabs example" onChange={handleChange} value={value}>
+            <Tabs id="play-com" aria-label="basic tabs example" onChange={handleChange} defaultValue={0}>
                 <Tab label="Player" />
                 <Tab label="Comments" />
             </Tabs>
             <Box height='80%'>
               <Box>
-                <SwitchTab value={0} index={0} >
+                <SwitchTab value={value} index={0} >
                   <YouTubePlayer/>
                 </SwitchTab>
               </Box>
               <Box height='100%'>
-                <SwitchTab value={1} index={1}>
+                <SwitchTab value={value} index={1}>
                   <Comments/>
                 </SwitchTab>
               </Box>

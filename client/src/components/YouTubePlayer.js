@@ -46,7 +46,7 @@ export default function YouTubePlayer(props) {
         console.log(store.youTubeCurrentSong);
         console.log(store.youTubePlaylist);
         if(store.youTubeCurrentSong){
-            song = store.youTubePlaylist.songs.indexOf(store.youTubeCurrentSong).youTubeId;
+            song = store.youTubeCurrentSong.youTubeId;
         }
         player.loadVideoById(song);
         player.playVideo();
@@ -61,7 +61,7 @@ export default function YouTubePlayer(props) {
     function onPlayerReady(event) {
         loadAndPlayCurrentSong(event.target);
         event.target.playVideo();
-        store.addYouTubePlayer(event.target);
+        // store.addYouTubePlayer(event.target);
     }
 
     // function nextSong(){
@@ -139,7 +139,7 @@ export default function YouTubePlayer(props) {
             backgroundColor: "lightgray",
             borderRadius: "20px",
           }}>
-          <Grid container marginTop="5px" rowGap="5px">
+          <Grid container margintop="5px" rowGap="5px">
             <Grid item xs={12} sx={{ fontSize: 30, paddingLeft: "30%" }}>
               <strong>Now Playing</strong>
             </Grid>
@@ -171,7 +171,7 @@ export default function YouTubePlayer(props) {
         <Grid container>
         <Grid item xs={2}/>
           <Grid item xs={2}>
-            <Button onClick={prevSong} marginRight={"50%"}>
+            <Button onClick={prevSong} marginright={"50%"}>
               <FastRewindIcon sx={{fontSize: 30,color: "#899499",}}/>
             </Button>
           </Grid>

@@ -102,7 +102,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -122,7 +122,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: store.youTubePlayer,
+                    youTubePlayer: null,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 })
@@ -142,7 +142,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 })
@@ -162,7 +162,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: store.youTubePlayer,
+                    // youTubePlayer: null,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -182,7 +182,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -202,7 +202,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: payload,
                     youTubeCurrentSong: payload,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: null,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -222,7 +222,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -242,7 +242,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: store.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -261,7 +261,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -280,7 +280,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -299,7 +299,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: payload.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -318,7 +318,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: store.youTubeCurrentSong,
                     openList: payload,
-                    youTubePlayer: null,
+                    // youTubePlayer: null,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -335,9 +335,9 @@ function GlobalStoreContextProvider(props) {
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
                     youTubePlaylist: payload,
-                    youTubeCurrentSong: store.youTubeCurrentSong,
+                    youTubeCurrentSong: payload.songs,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: null,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -348,7 +348,7 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     currentList: store.currentList,
                     currentSongIndex: -1,
-                    currentSong: null,
+                    currentSong: payload,
                     newListCounter: store.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
@@ -356,7 +356,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.currentList,
                     youTubeCurrentSong: payload,
                     openList: store.openList,
-                    youTubePlayer: null,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -375,7 +375,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: store.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: store.youTubePlayer,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: store.searchValue
                 });
@@ -394,7 +394,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: store.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: store.youTubePlayer,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: payload,
                     searchValue: store.searchValue
                 });
@@ -413,7 +413,7 @@ function GlobalStoreContextProvider(props) {
                     youTubePlaylist: store.youTubePlaylist,
                     youTubeCurrentSong: store.youTubeCurrentSong,
                     openList: store.openList,
-                    youTubePlayer: store.youTubePlayer,
+                    // youTubePlayer: store.youTubePlayer,
                     homeScreenView: store.homeScreenView,
                     searchValue: []
                 });
@@ -626,15 +626,18 @@ function GlobalStoreContextProvider(props) {
         return store.currentList.songs.length;
     }
     store.addNewSong = function() {
+        console.log("addnewsong");
         let index = this.getPlaylistSize();
         this.addCreateSongTransaction(index, "Untitled", "?", "dQw4w9WgXcQ");
     }
     // THIS FUNCTION CREATES A NEW SONG IN THE CURRENT LIST
     // USING THE PROVIDED DATA AND PUTS THIS SONG AT INDEX
     store.createSong = function(index, song) {
+        console.log("createsong");
         let list = store.currentList;      
         list.songs.splice(index, 0, song);
         // NOW MAKE IT OFFICIAL
+        console.log(store.currentList);
         store.updateCurrentList();
     }
     // THIS FUNCTION MOVES A SONG IN THE CURRENT LIST FROM
@@ -682,13 +685,14 @@ function GlobalStoreContextProvider(props) {
         // NOW MAKE IT OFFICIAL
         store.updateCurrentList();
     }
-    store.addNewSong = () => {
-        let playlistSize = store.getPlaylistSize();
-        store.addCreateSongTransaction(
-            playlistSize, "Untitled", "?", "dQw4w9WgXcQ");
-    }
+    // store.addNewSong = () => {
+    //     let playlistSize = store.getPlaylistSize();
+    //     store.addCreateSongTransaction(
+    //         playlistSize, "Untitled", "?", "dQw4w9WgXcQ");
+    // }
     // THIS FUNCDTION ADDS A CreateSong_Transaction TO THE TRANSACTION STACK
     store.addCreateSongTransaction = (index, title, artist, youTubeId) => {
+        console.log("trans")
         // ADD A SONG ITEM AND ITS NUMBER
         let song = {
             title: title,
@@ -759,6 +763,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.setCurrentYouTubeSong= function (index){
+        console.log(index);
         storeReducer({
             type: GlobalStoreActionType.CHANGE_CURRENT_PLAYING_SONG,
             payload: index
@@ -805,12 +810,12 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
-    store.addYouTubePlayer = function(player) {
-        storeReducer({
-            type: GlobalStoreActionType.YOUTUBE_PLAYER,
-            payload: {youTubePlayer: player}
-        });
-    }
+    // store.addYouTubePlayer = function(player) {
+    //     storeReducer({
+    //         type: GlobalStoreActionType.YOUTUBE_PLAYER,
+    //         payload: player
+    //     });
+    // }
 
     store.setCurrentYouTubeList = function (playlist){
         console.log(playlist);
@@ -831,6 +836,7 @@ function GlobalStoreContextProvider(props) {
                 });
             }
         }
+        awaitChange(id);
     }
 
     store.publishList = function(){

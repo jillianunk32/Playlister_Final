@@ -39,7 +39,7 @@ function EditToolbar(props) {
         await store.loadIdNamePairs1();
         window.location.reload();
     }
-    console.log(idNamePair.published);
+
     return (
         <Box sx={{marginTop: "10%", display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{width:"100%"}}>

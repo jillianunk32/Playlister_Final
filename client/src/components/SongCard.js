@@ -51,9 +51,10 @@ function SongCard(props) {
         //     store.showEditSongModal(index, song);
         // }
         if (event.detail ===1) {
-            // event.stopPropagation();
+            event.stopPropagation();
             console.log("single-clicked");
             setsong(index);
+            // store.setCurrentYouTubeSong(index);
         }
     }
 

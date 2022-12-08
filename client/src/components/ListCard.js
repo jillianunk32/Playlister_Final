@@ -131,7 +131,7 @@ function ListCard(props) {
         cardStatus = true;
     }
     let inner="";
-    console.log(idNamePair.publishedDate);
+
     if(idNamePair.published===true){
     inner =
             <Stack sx={{ p: 1, width: "100%"}}>
@@ -170,7 +170,7 @@ function ListCard(props) {
             style={{transform:"translate(1%,0%)", width: '98%', fontSize: '24pt'}}
             button
             onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
+                handleClick(event, idNamePair._id)
             }}
         >
             {inner}
